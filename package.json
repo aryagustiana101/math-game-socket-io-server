@@ -1,5 +1,5 @@
 {
-  "name": "levio-party-server-dev",
+  "name": " math-game-socket-io-server",
   "version": "1.0.0",
   "description": "Experimental development repository for Levio Party server.",
   "main": "index.js",
