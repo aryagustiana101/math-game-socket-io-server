@@ -33,25 +33,25 @@ io.on("connection", (socket) => {
       score: 0,
     };
     players.push(player);
-    io.emit("player", player);
     updateGame();
   });
 
   socket.on("answer", (data) => {
     if (+data.answer === question.answer) {
       question = createQuestion();
-      increasePoints(data.player.id);
+      increasePoints(socket.id);
       updateGame();
     }
   });
 
   socket.on("disconnect", () => {
     players = players.filter((player) => player.id !== socket.id);
+    updateGame();
   });
 });
 
 function updateGame() {
-  const leaderBoard = players.sort((a, b) => b.points - a.points).slice(0, 10);
+  const leaderBoard = players.sort((a, b) => b.score - a.score).slice(0, 10);
   io.emit("question", question.expression);
   io.emit("leaderBoard", leaderBoard);
 }
